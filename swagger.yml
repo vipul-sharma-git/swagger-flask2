@@ -1,0 +1,117 @@
+swagger: "2.0"
+info:
+ description: This is the swagger file that goes with our server code
+ version: "1.0.0"
+ title: Swagger REST Article
+consumes:
+ - "application/json"
+produces:
+ - "application/json"
+
+basePath: "/api"
+
+# Paths supported by the server application
+paths:
+ /task/{id}:
+   parameters:
+     - in: path
+       name: id
+       type: string
+       required: true
+       description: Task id to get status of task
+   get:
+     operationId: "asyncworker.views.get_status"
+     tags:
+       - "Jobs"
+     summary: "Get job status"
+     description: "Get job status"
+     responses:
+       200:
+         description: Return status of the job
+       400:
+         description: There was an error with the parameters passed to this API call
+       404:
+         description: A task with the specified id was not found.
+       500:
+         description: Error encountered
+
+ /topics:
+   get:
+     operationId: "topics.views.get_all"
+     tags:
+       - "Topics"
+     summary: "List Topics"
+     description: "List all the topics"
+     responses:
+       200:
+         description: "List all topics with categories"
+         schema:
+           type: "array"
+           items:
+             properties:
+               name:
+                 type: "string"
+               categories:
+                 type: "array"
+
+ /topics/{name}:
+   parameters:
+     - in: path
+       name: name
+       type: string
+       required: true
+       description: The topic name.
+   get:
+     operationId: "topics.views.get_by_name"
+     tags:
+       - "Topics"
+     summary: "Get By Name"
+     description: "Get topics by name"
+     responses:
+       200:
+         description: "Get topic details by name"
+         schema:
+           type: "object"
+           properties:
+             name:
+               type: "string"
+             categories:
+               type: "array"
+       400:
+         description: There was an error with the parameters passed to this API call
+       500:
+         description: Error encountered
+   put:
+     operationId: "topics.views.update_by_name"
+     tags:
+       - "Topics"
+     summary: "Update Topic"
+     description: "Update topic name"
+     responses:
+       200:
+         description: Successfully updated the name in topics list
+       400:
+         description: There was an error with the parameters passed to this API call
+       404:
+         description: A topic with the specified nme was not found.
+       405:
+         description: This operation is not supported for privileged user
+       500:
+         description: Error encountered
+   delete:
+     operationId: "topics.views.delete_by_name"
+     tags:
+       - "Topics"
+     summary: "Delete Topic With Name"
+     description: "Delete Topic With Specific Name"
+     responses:
+       200:
+         description: Successfully deleted a name from topics list
+       400:
+         description: There was an error with the parameters passed to this API call
+       404:
+         description: A topic with the specified name was not found.
+       405:
+         description: This operation is not supported for privileged user
+       500:
+         description: Error encountered
