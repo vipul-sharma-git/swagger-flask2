@@ -6,6 +6,6 @@ ADD . /code
 WORKDIR /code
 RUN ["pip", "install", "-r", "requirements.txt"]
 
-CMD ["python", "-m", "unittest", "discover", "tests"
+RUN ["python", "-m", "unittest", "discover", "tests"]
 
 CMD ["python", "server.py"]

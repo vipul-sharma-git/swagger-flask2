@@ -15,7 +15,7 @@ def home():
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
-    connex_app.run(host='127.0.0.1', port=5000, debug=True)
-    # connex_app.run(host='0.0.0.0', debug=True)
+    # connex_app.run(host='127.0.0.1', port=5000, debug=True)
+    connex_app.run(host='0.0.0.0', debug=True)
 
 
