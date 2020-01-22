@@ -1,10 +1,14 @@
+"""asyncworker tasks operations"""
+
 import uuid
 from asyncworker.models import Task
-from config import db
-from extras import constants
+from settings import db
+import constants
 
 
 class Jobs:
+    """Jobs CRUD operations"""
+
     @classmethod
     def get_id(cls):
         """
@@ -12,8 +16,8 @@ class Jobs:
         """
         try:
             return True, cls.insert_id()
-        except Exception as e:
-            return False, str(e)
+        except (KeyError, AttributeError) as err:
+            return False, str(err)
 
     @staticmethod
     def insert_id():
@@ -22,7 +26,9 @@ class Jobs:
         :return: task id
         """
         task_id = uuid.uuid4().hex
-        db.session.add(Task(task_id=task_id, task_status=constants.INPROGRESS, task_error=''))
+        db.session.add(
+            Task(task_id=task_id, task_status=constants.INPROGRESS, task_error="")
+        )
         db.session.commit()
         return task_id
 
@@ -48,4 +54,4 @@ class Jobs:
         :return: task status field details
         """
         task_data = Task.query.filter_by(task_id=task_id).first()
-        return task_data.task_status if task_data else ''
+        return task_data.task_status if task_data else ""

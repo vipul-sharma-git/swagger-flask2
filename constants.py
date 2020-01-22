@@ -1,12 +1,18 @@
-# Global Constants
+"""Global Constants"""
 
 BAD_REQUEST = 400
 COMPLETED = "Completed"
 ERROR = "Error encountered: {error}"
 FAILED = "Failed"
 INPROGRESS = "In-Progress"
+INSERT = "insert"
 INVALID_TASK_ID = "Task {id} not valid"
 NOT_FOUND = 404
+SQLALCHEMY_ECHO_KEY = "SQLALCHEMY_ECHO"
+SQLALCHEMY_DATABASE_URI_KEY = "SQLALCHEMY_DATABASE_URI"
+SQLALCHEMY_TRACK_MODIFICATIONS_KEY = "SQLALCHEMY_TRACK_MODIFICATIONS"
+SWAGGER_FILE_NAME = "swagger.yml"
 SUCCESS_CODE = 200
 TASK_STATUS_KEY = "task_status"
 TASK_ERROR_KEY = "task_error"
+UPDATE = "update"

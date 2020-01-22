@@ -1,13 +1,16 @@
-# listed topics tables
-from config import db
+"""listed topics tables"""
+
 from datetime import datetime
+from settings import db
 
 
 class Topics(db.Model):
-   __tablename__ = "topics"
-   id = db.Column(db.Integer, primary_key=True)
-   name = db.Column(db.String(32))
-   categories = db.Column(db.String(32))
-   timestamp = db.Column(
-       db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
-   )
+    """Topics table"""
+
+    __tablename__ = "topics"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32))
+    categories = db.Column(db.String(32))
+    timestamp = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )

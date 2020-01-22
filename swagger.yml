@@ -12,10 +12,10 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
- /task/{id}:
+ /task/{task_id}:
    parameters:
      - in: path
-       name: id
+       name: task_id
        type: string
        required: true
        description: Task id to get status of task
