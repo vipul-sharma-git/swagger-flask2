@@ -4,16 +4,16 @@ import json
 import mock
 import flask
 
-from topics.views import get_all, get_by_name, delete_by_name, update_by_name
-from topics.views import _NAME_KEY, _CATEGORIES_KEY, _TOPIC_DELETED, _TOPIC_NAME_NA
+from views.topics import get_all, get_by_name, delete_by_name, update_by_name
+from views.topics import _NAME_KEY, _CATEGORIES_KEY, _TOPIC_DELETED, _TOPIC_NAME_NA
 import constants
 
 
 class GetAllTestCase(unittest.TestCase):
     """Get all topics tests"""
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_get_all_success(self, mock_obj, mock_response):
         """Get all topics success"""
         data = {}
@@ -28,8 +28,8 @@ class GetAllTestCase(unittest.TestCase):
             self.assertEqual(str(res["data"]), flask_res.data.decode("utf-8").strip())
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_get_all_error(self, mock_obj, mock_response):
         """Get all topics with error"""
         error = "Error"
@@ -52,8 +52,8 @@ class GetAllTestCase(unittest.TestCase):
 class GetByNameTestCase(unittest.TestCase):
     """Get topic by name test cases"""
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_get_by_name_exists_success(self, mock_obj, mock_response):
         """Get topic name exists in DB"""
         name = "python"
@@ -72,13 +72,12 @@ class GetByNameTestCase(unittest.TestCase):
             # self.assertEqual(res["data"], json.loads(flask_res.data.decode("utf-8")))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.asyncio")
-    @mock.patch("topics.views.Jobs")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.asyncio")
+    @mock.patch("views.topics.Jobs")
+    @mock.patch("views.topics.Topics")
     def test_get_by_name_not_exists_get_job_id_success(
-        self, mock_obj, mock_job, mock_async, mock_response
-    ):
+            self, mock_obj, mock_job, mock_async, mock_response):
         """Get topic by name does not exists in DB"""
         name = "data"
         job_id = "123456abcd"
@@ -94,12 +93,11 @@ class GetByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Jobs")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Jobs")
+    @mock.patch("views.topics.Topics")
     def test_get_by_name_not_exists_get_job_id_fails(
-        self, mock_obj, mock_job, mock_response
-    ):
+            self, mock_obj, mock_job, mock_response):
         """Get exists error while returning job id"""
         name = "data"
         job_error = "Job Error"
@@ -121,8 +119,8 @@ class GetByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_get_by_name_exception(self, mock_obj, mock_response):
         """Get topic name got exception"""
         name = "data"
@@ -147,9 +145,9 @@ class GetByNameTestCase(unittest.TestCase):
 class DeleteByNameTestCase(unittest.TestCase):
     """"Delete by name test cases"""
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.db")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.db")
+    @mock.patch("views.topics.Topics")
     def test_delete_by_topic_name_success(self, mock_obj, mock_db, mock_response):
         """Delete by name success"""
         name = "python"
@@ -167,8 +165,8 @@ class DeleteByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_delete_by_topic_name_not_available(self, mock_obj, mock_response):
         """Delete by topic name NA"""
         name = "data"
@@ -187,8 +185,8 @@ class DeleteByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_delete_by_topic_name_error(self, mock_obj, mock_response):
         """While deleting got the error"""
         name = "data"
@@ -212,13 +210,12 @@ class DeleteByNameTestCase(unittest.TestCase):
 class UpdateByNameTestCase(unittest.TestCase):
     """Update by name test cases"""
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.asyncio")
-    @mock.patch("topics.views.Jobs")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.asyncio")
+    @mock.patch("views.topics.Jobs")
+    @mock.patch("views.topics.Topics")
     def test_update_by_name_success(
-        self, mock_obj, mock_job, mock_async, mock_response
-    ):
+            self, mock_obj, mock_job, mock_async, mock_response):
         """update by name success"""
         name = "python"
         job_id = "123456abcd"
@@ -233,8 +230,8 @@ class UpdateByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_update_by_name_not_found_success(self, mock_obj, mock_response):
         """Update by topic name NA"""
         name = "data"
@@ -253,9 +250,9 @@ class UpdateByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Jobs")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Jobs")
+    @mock.patch("views.topics.Topics")
     def test_update_by_name_get_job_id_fails(self, mock_obj, mock_job, mock_response):
         """Update by topic name error while returning task id"""
         name = "data"
@@ -275,8 +272,8 @@ class UpdateByNameTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("topics.views.make_response")
-    @mock.patch("topics.views.Topics")
+    @mock.patch("views.topics.make_response")
+    @mock.patch("views.topics.Topics")
     def test_update_by_name_exception(self, mock_obj, mock_response):
         """Update by name exception"""
         name = "data"

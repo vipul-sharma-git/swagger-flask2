@@ -1,12 +1,12 @@
 """Topics views"""
 import asyncio
-
 from flask import make_response
-from asyncworker.tasks import Jobs
-from settings import db
+
 import constants
-from topics.models import Topics
-from topics.helpers import topic_jobs
+from utils.jobs import Jobs
+from utils.helpers import topic_jobs
+from settings import db
+from models.topics import Topics
 
 
 _NAME_KEY = "name"

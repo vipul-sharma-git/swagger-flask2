@@ -1,7 +1,7 @@
 """Asyncworker apis views"""
 
 from flask import make_response
-from asyncworker.tasks import Jobs
+from utils.jobs import Jobs
 import constants
 
 

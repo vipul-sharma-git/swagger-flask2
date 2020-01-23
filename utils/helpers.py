@@ -2,10 +2,10 @@
 import asyncio
 from urllib import request
 from bs4 import BeautifulSoup
-from asyncworker.tasks import Jobs
+from utils.jobs import Jobs
 from settings import db
 import constants
-from topics.models import Topics
+from models.topics import Topics
 
 _CATEGORIES_SELECTOR = "ul.toc.chapters li a"
 _HTML_PARSER = "html.parser"

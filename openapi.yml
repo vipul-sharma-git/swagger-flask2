@@ -1,24 +1,17 @@
-swagger: "2.0"
+openapi: 3.0.8
 info:
- description: This is the swagger file that goes with our server code
- version: "1.0.0"
- title: Swagger REST Article
-consumes:
- - "application/json"
-produces:
- - "application/json"
+  title: '{{title}}'
+  version: '1.0'
 
-basePath: "/api"
-
-# Paths supported by the server application
 paths:
  /task/{task_id}:
    parameters:
-     - in: path
-       name: task_id
-       type: string
-       required: true
+     - name: task_id
+       in: path
        description: Task id to get status of task
+       required: true
+       schema:
+         type: string
    get:
      operationId: "views.asyncworker.get_status"
      tags:
@@ -45,22 +38,19 @@ paths:
      responses:
        200:
          description: "List all topics with categories"
-         schema:
-           type: "array"
-           items:
-             properties:
-               name:
-                 type: "string"
-               categories:
-                 type: "array"
+         content:
+           application/json:
+             schema:
+               type: object
 
  /topics/{name}:
    parameters:
-     - in: path
-       name: name
-       type: string
-       required: true
+     - name: name
+       in: path
        description: The topic name.
+       required: true
+       schema:
+         type: string
    get:
      operationId: "views.topics.get_by_name"
      tags:
@@ -70,13 +60,10 @@ paths:
      responses:
        200:
          description: "Get topic details by name"
-         schema:
-           type: "object"
-           properties:
-             name:
-               type: "string"
-             categories:
-               type: "array"
+         content:
+           application/json:
+             schema:
+               type: object
        400:
          description: There was an error with the parameters passed to this API call
        500:
@@ -115,3 +102,6 @@ paths:
          description: This operation is not supported for privileged user
        500:
          description: Error encountered
+
+#servers:
+#  - url: http://127.0.0.1:5000/v1/

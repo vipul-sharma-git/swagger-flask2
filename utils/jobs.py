@@ -1,7 +1,7 @@
 """asyncworker tasks operations"""
 
 import uuid
-from asyncworker.models import Task
+from models.tasks import Task
 from settings import db
 import constants
 

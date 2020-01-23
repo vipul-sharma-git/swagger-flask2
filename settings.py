@@ -7,9 +7,7 @@ import constants
 
 # Create the connexion application instance
 connex_app = connexion.App(
-    __name__,
-    specification_dir=config.BASEDIR,
-    options={"swagger_path": swagger_ui_3_path},
+    __name__, specification_dir=config.BASEDIR, arguments={"global": "global_value"},
 )
 
 # Get the underlying Flask app instance

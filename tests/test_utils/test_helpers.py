@@ -2,7 +2,7 @@
 
 import unittest
 from parameterized import parameterized
-from topics.helpers import parse_html
+from utils.helpers import parse_html
 
 
 class HelpersTestCase(unittest.TestCase):

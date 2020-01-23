@@ -2,15 +2,15 @@
 import unittest
 import mock
 import flask
-from asyncworker.views import get_status
+from views.asyncworker import get_status
 from constants import ERROR, BAD_REQUEST, SUCCESS_CODE, COMPLETED
 
 
 class JobsAllTestCase(unittest.TestCase):
     """All jobs unit tests"""
 
-    @mock.patch("asyncworker.views.make_response")
-    @mock.patch("asyncworker.views.Jobs")
+    @mock.patch("views.asyncworker.make_response")
+    @mock.patch("views.asyncworker.Jobs")
     def test_get_status_success(self, mock_job, mock_response):
         """Get status success"""
         job_id = "1234abcd"
@@ -27,8 +27,8 @@ class JobsAllTestCase(unittest.TestCase):
             self.assertEqual(res["data"], flask_res.data.decode("utf-8"))
             self.assertEqual(res["status_code"], flask_res.status_code)
 
-    @mock.patch("asyncworker.views.make_response")
-    @mock.patch("asyncworker.views.Jobs")
+    @mock.patch("views.asyncworker.make_response")
+    @mock.patch("views.asyncworker.Jobs")
     def test_get_status_job_id_error(self, mock_job, mock_response):
         """Get status error"""
         job_id = "1234abcde"

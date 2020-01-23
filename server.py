@@ -6,7 +6,7 @@ import constants
 connex_app = settings.connex_app
 
 # Read the swagger.yml file to configure the endpoints
-connex_app.add_api(constants.SWAGGER_FILE_NAME)
+connex_app.add_api(constants.SWAGGER_FILE_NAME, arguments={"global": "global_value"})
 
 # Create a URL route in our application for "/"
 @connex_app.route("/")

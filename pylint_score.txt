@@ -1,0 +1,33 @@
+************* Module topics_assgn.tests.test_views.test_topics
+tests\test_views\test_topics.py:17:35: W0613: Unused argument 'mock_obj' (unused-argument)
+tests\test_views\test_topics.py:151:48: W0613: Unused argument 'mock_obj' (unused-argument)
+tests\test_views\test_topics.py:151:58: W0613: Unused argument 'mock_db' (unused-argument)
+tests\test_views\test_topics.py:218:18: W0613: Unused argument 'mock_obj' (unused-argument)
+tests\test_views\test_topics.py:256:51: W0613: Unused argument 'mock_obj' (unused-argument)
+
+------------------------------------------------------------------
+Your code has been rated at 9.76/10 (previous run: 9.76/10, +0.00)
+
+************* Module topics_assgn.views.asyncworker
+views\asyncworker.py:25:8: W0150: return statement in finally block may swallow exception (lost-exception)
+************* Module topics_assgn.views.topics
+views\topics.py:34:11: W0703: Catching too general exception Exception (broad-except)
+views\topics.py:37:8: W0150: return statement in finally block may swallow exception (lost-exception)
+views\topics.py:64:11: W0703: Catching too general exception Exception (broad-except)
+views\topics.py:67:8: W0150: return statement in finally block may swallow exception (lost-exception)
+views\topics.py:87:11: W0703: Catching too general exception Exception (broad-except)
+views\topics.py:90:8: W0150: return statement in finally block may swallow exception (lost-exception)
+views\topics.py:113:11: W0703: Catching too general exception Exception (broad-except)
+views\topics.py:116:8: W0150: return statement in finally block may swallow exception (lost-exception)
+
+------------------------------------------------------------------
+Your code has been rated at 8.97/10 (previous run: 8.97/10, +0.00)
+
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+
+
+--------------------------------------------------------------------
+Your code has been rated at 10.00/10 (previous run: 10.00/10, +0.00)
+
