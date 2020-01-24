@@ -8,23 +8,23 @@ paths:
    parameters:
      - name: task_id
        in: path
-       description: Task id to get status of task
+       description: Get the status of task with ID
        required: true
        schema:
          type: string
    get:
-     operationId: "views.asyncworker.get_status"
+     operationId: "views.tasks.get_status"
      tags:
        - "Jobs"
-     summary: "Get job status"
-     description: "Get job status"
+     summary: "Get Task Status"
+     description: "Get task status"
      responses:
        200:
-         description: Return status of the job
+         description: Return status of the task
        400:
          description: There was an error with the parameters passed to this API call
        404:
-         description: A task with the specified id was not found.
+         description: A task with the specified ID was not found.
        500:
          description: Error encountered
 
@@ -37,7 +37,7 @@ paths:
      description: "List all the topics"
      responses:
        200:
-         description: "List all topics with categories"
+         description: "List topics with categories"
          content:
            application/json:
              schema:
@@ -55,8 +55,8 @@ paths:
      operationId: "views.topics.get_by_name"
      tags:
        - "Topics"
-     summary: "Get By Name"
-     description: "Get topics by name"
+     summary: "Get By Topic Name"
+     description: "Get By Topic Name"
      responses:
        200:
          description: "Get topic details by name"
@@ -72,15 +72,15 @@ paths:
      operationId: "views.topics.update_by_name"
      tags:
        - "Topics"
-     summary: "Update Topic"
-     description: "Update topic name"
+     summary: "Update Topic Details"
+     description: "Update Topic Details"
      responses:
        200:
          description: Successfully updated the name in topics list
        400:
          description: There was an error with the parameters passed to this API call
        404:
-         description: A topic with the specified nme was not found.
+         description: A topic with the specified name was not found.
        405:
          description: This operation is not supported for privileged user
        500:
@@ -90,7 +90,7 @@ paths:
      tags:
        - "Topics"
      summary: "Delete Topic With Name"
-     description: "Delete Topic With Specific Name"
+     description: "Delete Topic With Name"
      responses:
        200:
          description: Successfully deleted a name from topics list
@@ -102,6 +102,3 @@ paths:
          description: This operation is not supported for privileged user
        500:
          description: Error encountered
-
-#servers:
-#  - url: http://127.0.0.1:5000/v1/

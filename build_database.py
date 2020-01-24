@@ -1,3 +1,4 @@
+""" Create tables in DB"""
 # import os
 from settings import db
 

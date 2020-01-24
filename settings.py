@@ -1,7 +1,7 @@
+""" Project setting """
 import connexion
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from swagger_ui_bundle import swagger_ui_3_path
 import config
 import constants
 
