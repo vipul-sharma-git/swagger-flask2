@@ -64,6 +64,8 @@ paths:
            application/json:
              schema:
                type: object
+       202:
+         description: Request has been accepted for inserting the topic
        400:
          description: There was an error with the parameters passed to this API call
        500:
@@ -75,8 +77,8 @@ paths:
      summary: "Update Topic Details"
      description: "Update Topic Details"
      responses:
-       200:
-         description: Successfully updated the name in topics list
+       202:
+         description: Request has been accepted for updating the categories
        400:
          description: There was an error with the parameters passed to this API call
        404:
@@ -92,7 +94,7 @@ paths:
      summary: "Delete Topic With Name"
      description: "Delete Topic With Name"
      responses:
-       200:
+       204:
          description: Successfully deleted a name from topics list
        400:
          description: There was an error with the parameters passed to this API call

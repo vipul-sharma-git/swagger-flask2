@@ -5,14 +5,14 @@ from bs4 import BeautifulSoup
 from utils.jobs import Jobs
 from settings import db
 import constants
-from models.topics import Topics
+from models.topics import Topics, Categories
 
 _CATEGORIES_SELECTOR = "ul.toc.chapters li a"
 _HTML_PARSER = "html.parser"
 _TOPICS_URL = "https://www.tutorialspoint.com/{name}/index.htm"
 
 
-def parse_html(name: str) -> str:
+def parse_html(name: str) -> list:
     """
     It request the topics url and parse as well as fetch categories details w.r.t topic name
     :param name: Name of the topic
@@ -22,9 +22,41 @@ def parse_html(name: str) -> str:
     soup = BeautifulSoup(html_contents.read(), _HTML_PARSER)
     categories_tags = soup.select(_CATEGORIES_SELECTOR)
     if categories_tags:
-        categories_list = [categories.get_text() for categories in categories_tags]
-        return ",".join(categories_list)
-    return ""
+        return [categories.get_text() for categories in categories_tags]
+    return []
+
+
+def insert_categories(name: str) -> None:
+    """
+    Insert new topic to Topic table as well as categories in categories table.
+    :param name: Name of the topic
+    """
+    # Add topic name to Topics Table
+    db.session.add(Topics(name=name))
+    topic_id = Topics.query.filter_by(name=name).first()
+    categories_data = [
+        Categories(name=cat, topic_name=topic_id.id) for cat in parse_html(name)
+    ]
+    # Add categories to Categories Table
+    db.session.add_all(categories_data)
+    db.session.commit()
+
+
+def update_categories(name: str) -> None:
+    """
+    Update categories in categories table by removing
+    old categories w.r.t topic name.
+    :param name: Name of the topic
+    """
+    # Delete Categories w.r.t topic name
+    topic_id = Topics.query.filter_by(name=name).first()
+    Categories.query.filter_by(topic_name=topic_id.id).delete()
+    categories_data = [
+        Categories(name=cat, topic_name=topic_id.id) for cat in parse_html(name)
+    ]
+    # Add new categories to Categories table
+    db.session.add_all(categories_data)
+    db.session.commit()
 
 
 async def topic_operation(name: str, job_id: str, job_type: str) -> None:
@@ -42,11 +74,9 @@ async def topic_operation(name: str, job_id: str, job_type: str) -> None:
     }
     try:
         if job_type.lower().strip() == constants.INSERT.lower().strip():
-            db.session.add(Topics(name=name, categories=parse_html(name)))
+            insert_categories(name)
         elif job_type.lower().strip() == constants.UPDATE.lower().strip():
-            topic_data = Topics.query.filter_by(name=name).first()
-            topic_data.categories = parse_html(name)
-        db.session.commit()
+            update_categories(name)
         task_dict[constants.TASK_STATUS_KEY] = constants.COMPLETED
     except (KeyError, AttributeError, ValueError) as err:
         task_dict[constants.TASK_ERROR_KEY] = str(err)
